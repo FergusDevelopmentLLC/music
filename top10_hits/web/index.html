@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://momentjs.com/downloads/moment.js"></script>
+<style>
+  div.tooltip {
+    width: 275px;
+    padding: 10px;
+    text-align: center;
+    font: 11px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+  }
+  #container {
+    width: 900px;
+  }
+  #container div {
+    margin:auto;
+  }
+  h1 {
+    margin: 0 0 5px 0;
+    padding: 0;
+    font: 15px sans-serif;
+  }
+</style>
+<html>
+  <body>
+    <svg width="900" height="400"></svg>
+    <div id='container'>
+    </div>
+  </body>
+  <script>
+
+      var data = [
+        {
+          "artist": "Madonna",
+          "index": 0,
+          "ones": 12,
+          "twos": 6,
+          "threes": 4,
+          "fours": 3,
+          "fives": 3,
+          "sixes": 1,
+          "sevens": 2,
+          "eights": 3,
+          "nines": 1,
+          "tens": 3
+        },
+        {
+          "artist": "Drake",
+          "index": 1,
+          "ones": 6,
+          "twos": 3,
+          "threes": 1,
+          "fours": 1,
+          "fives": 3,
+          "sixes": 5,
+          "sevens": 4,
+          "eights": 5,
+          "nines": 5,
+          "tens": 2
+        },
+        {
+          "artist": "Elvis Presley",
+          "index": 2,
+          "ones": 16,
+          "twos": 4,
+          "threes": 4,
+          "fours": 2,
+          "fives": 2,
+          "sixes": 1,
+          "sevens": 0,
+          "eights": 1,
+          "nines": 1,
+          "tens": 0
+        },
+        {
+          "artist": "Rhianna",
+          "index": 3,
+          "ones": 14,
+          "twos": 3,
+          "threes": 3,
+          "fours": 1,
+          "fives": 2,
+          "sixes": 1,
+          "sevens": 4,
+          "eights": 1,
+          "nines": 2,
+          "tens": 0
+        },
+        {
+          "artist": "Michael Jackson",
+          "index": 4,
+          "ones": 16,
+          "twos": 1,
+          "threes": 0,
+          "fours": 1,
+          "fives": 2,
+          "sixes": 1,
+          "sevens": 3,
+          "eights": 0,
+          "nines": 2,
+          "tens": 4
+        },
+        {
+          "artist": "The Beatles",
+          "index": 5,
+          "ones": 20,
+          "twos": 3,
+          "threes": 3,
+          "fours": 1,
+          "fives": 0,
+          "sixes": 1,
+          "sevens": 0,
+          "eights": 1,
+          "nines": 0,
+          "tens": 0
+        },
+        {
+          "artist": "Elton John",
+          "index": 6,
+          "ones": 10,
+          "twos": 3,
+          "threes": 1,
+          "fours": 3,
+          "fives": 1,
+          "sixes": 4,
+          "sevens": 1,
+          "eights": 2,
+          "nines": 3,
+          "tens": 1
+        },
+        {
+          "artist": "Mariah Carey",
+          "index": 7,
+          "ones": 19,
+          "twos": 5,
+          "threes": 3,
+          "fours": 1,
+          "fives": 0,
+          "sixes": 0,
+          "sevens": 1,
+          "eights": 0,
+          "nines": 0,
+          "tens": 0
+        },
+        {
+          "artist": "Janet Jackson",
+          "index": 8,
+          "ones": 11,
+          "twos": 4,
+          "threes": 5,
+          "fours": 2,
+          "fives": 3,
+          "sixes": 0,
+          "sevens": 0,
+          "eights": 1,
+          "nines": 0,
+          "tens": 2
+        },
+        {
+          "artist": "Stevie Wonder",
+          "index": 9,
+          "ones": 11,
+          "twos": 2,
+          "threes": 3,
+          "fours": 3,
+          "fives": 1,
+          "sixes": 0,
+          "sevens": 1,
+          "eights": 2,
+          "nines": 3,
+          "tens": 2
+        }
+      ];
+    
+      let songs = []
+      songs[0] = [{"title":"Like A Virgin","date":"1984-09","position":1,"url":"https://www.youtube.com/watch?v=s__rX_WL100"},{"title":"Crazy For You","date":"1985-02","position":1,"url":"https://www.youtube.com/watch?v=DHutZXREZ0E"},{"title":"Live To Tell","date":"1986-04","position":1,"url":"https://www.youtube.com/watch?v=IzAO9A9GjgI"},{"title":"Papa Don't Preach","date":"1986-06","position":1,"url":"https://www.youtube.com/watch?v=G333Is7VPOg"},{"title":"Open Your Heart","date":"1986-11","position":1,"url":"https://www.youtube.com/watch?v=snsTmi9N9Gs"},{"title":"Who's That Girl","date":"1987-06","position":1,"url":"https://www.youtube.com/watch?v=Zi8U2S-2-Cc"},{"title":"Like A Prayer","date":"1989-02","position":1,"url":"https://www.youtube.com/watch?v=79fzeNUqQbQ"},{"title":"Vogue","date":"1990-03","position":1,"url":"https://www.youtube.com/watch?v=GuJQSAiODqI"},{"title":"Justify My Love","date":"1990-11","position":1,"url":"https://www.youtube.com/watch?v=Np_Y740aReI"},{"title":"This Used To Be My Playground","date":"1992-07","position":1,"url":"https://www.youtube.com/watch?v=RhXDO2a3-sE"},{"title":"Take A Bow","date":"1994-11","position":1,"url":"https://www.youtube.com/watch?v=XDeiovnCv1o"},{"title":"Music","date":"2000-08","position":1,"url":"https://www.youtube.com/watch?v=Sdz2oW0NMFk"},{"title":"Material Girl","date":"1985-01","position":2,"url":"https://www.youtube.com/watch?v=6p-lDYPR2P8"},{"title":"Causing A Commotion","date":"1987-08","position":2,"url":"https://www.youtube.com/watch?v=Ud3x2wz3WHA"},{"title":"Express Yourself","date":"1989-05","position":2,"url":"https://www.youtube.com/watch?v=GsVcUzP_O_8"},{"title":"Cherish","date":"1989-08","position":2,"url":"https://www.youtube.com/watch?v=8q2WS6ahCnY"},{"title":"I'll Remember","date":"1994-03","position":2,"url":"https://www.youtube.com/watch?v=R0cfZczo4yk"},{"title":"Frozen","date":"1998-02","position":2,"url":"https://www.youtube.com/watch?v=XS088Opj9o0"},{"title":"True Blue","date":"1986-09","position":3,"url":"https://www.youtube.com/watch?v=P51LunEV3Sk"},{"title":"Erotica","date":"1992-05","position":3,"url":"https://www.youtube.com/watch?v=WyhdvRWEWRw"},{"title":"Secret","date":"1994-08","position":3,"url":"https://www.youtube.com/watch?v=EPHUZenprKc"},{"title":"4 Minutes (with Justin Timberlake)","date":"2008-04","position":3,"url":"https://www.youtube.com/watch?v=aAQZPBwz2CI"},{"title":"Lucky Star","date":"1984-08","position":4,"url":"https://www.youtube.com/watch?v=ThHz9wlBeLU"},{"title":"La Isla Bonita","date":"1987-03","position":4,"url":"https://www.youtube.com/watch?v=zpzdgmqIHOQ"},{"title":"Don't Tell Me","date":"2000-11","position":4,"url":"https://www.youtube.com/watch?v=FRLHro9EPD0"},{"title":"Angel","date":"1985-04","position":5,"url":"https://www.youtube.com/watch?v=J7W3oVF4O1Q"},{"title":"Dress You Up","date":"1985-08","position":5,"url":"https://www.youtube.com/watch?v=67hlpwo670k"},{"title":"Ray Of Light","date":"1998-04","position":5,"url":"https://www.youtube.com/watch?v=x3ov9USxVxY"},{"title":"You'll See","date":"1995-10","position":6,"url":"https://www.youtube.com/watch?v=zyFzpBAZICc"},{"title":"Deeper And Deeper","date":"1992-11","position":7,"url":"https://www.youtube.com/watch?v=sJV29ZQIUhs"},{"title":"Hung Up","date":"2005-07","position":7,"url":"https://www.youtube.com/watch?v=EDwb9jOVRtU"},{"title":"Keep It Together","date":"1990-01","position":8,"url":"https://www.youtube.com/watch?v=mHek0kaNXjY"},{"title":"Don't Cry For Me Argentina","date":"1996-12","position":8,"url":"https://www.youtube.com/watch?v=KD_1Z8iUDho"},{"title":"Die Another Day","date":"2002-10","position":8,"url":"https://www.youtube.com/watch?v=VlbaJA7aO9M"},{"title":"Rescue Me","date":"1990-11","position":9,"url":"https://www.youtube.com/watch?v=qKVsF2yiAUA"},{"title":"Borderline","date":"1984-05","position":10,"url":"https://www.youtube.com/watch?v=rSaC-YbSDpo"},{"title":"Hanky Panky","date":"1990-06","position":10,"url":"https://www.youtube.com/watch?v=AFSx9fE1qJ8"},{"title":"Give Me All Your Luvin' and M.I.A. (with Nicki Minaj)","date":"2012-02","position":10,"url":"https://www.youtube.com/watch?v=cItHOl5LRWg"}]
+      songs[1] = [{"title":"What's My Name? (with Rihanna)","date":"2010-10","position":1,"url":"https://www.youtube.com/watch?v=U0CGsw6h60k"},{"title":"Work (with Rihanna)","date":"2016-01","position":1,"url":"https://www.youtube.com/watch?v=HL1UzIK-flA"},{"title":"One Dance and Kyla (with WizKid)","date":"2016-08","position":1,"url":"https://www.youtube.com/watch?v=iAbnEUA0wpA"},{"title":"God's Plan","date":"2018-01","position":1,"url":"https://www.youtube.com/watch?v=xpVfcZ0ZcFM"},{"title":"Nice For What","date":"2018-04","position":1,"url":"https://www.youtube.com/watch?v=U9BwWKXjVaI"},{"title":"In My Feelings","date":"2018-06","position":1,"url":"https://www.youtube.com/watch?v=DRS_PpOrUZ4"},{"title":"Best I Ever Had","date":"2009-05","position":2,"url":"https://www.youtube.com/watch?v=Zfp3KfYH0xA"},{"title":"Hotline Bling","date":"2015-08","position":2,"url":"https://www.youtube.com/watch?v=uxpDa-c-4Mc"},{"title":"Nonstop","date":"2018-06","position":2,"url":"https://www.youtube.com/watch?v=lJTRVX9R5EA"},{"title":"She Will (with Lil' Wayne)","date":"2011-08","position":3,"url":"https://www.youtube.com/watch?v=_7nYuyfkjCk"},{"title":"Hold On We're Going Home (with Majid Jordan)","date":"2013-08","position":4,"url":"https://www.youtube.com/watch?v=GxgqpCdOKak"},{"title":"Find Your Love","date":"2010-05","position":5,"url":"https://www.youtube.com/watch?v=Xyv4Bjja8yc"},{"title":"Look Alive (with BlocBoy JB)","date":"2018-02","position":5,"url":"https://www.youtube.com/watch?v=NV-3s2wwC8c"},{"title":"MIA (with Bad Bunny)","date":"2018-10","position":5,"url":"https://www.youtube.com/watch?v=OSUxrSe5GbI"},{"title":"Right Above It (with Lil' Wayne)","date":"2010-08","position":6,"url":"https://www.youtube.com/watch?v=CHZtMNbrmWE"},{"title":"Started From The Bottom","date":"2013-02","position":6,"url":"https://www.youtube.com/watch?v=RubBzkZzpUA"},{"title":"Summer Sixteen","date":"2016-01","position":6,"url":"https://www.youtube.com/watch?v=LmbC_aqI4no"},{"title":"Yes Indeed (with Lil Baby)","date":"2018-05","position":6,"url":"https://www.youtube.com/watch?v=AbEHRrq7xwU"},{"title":"Going Bad (with Meek Mill)","date":"2018-12","position":6,"url":"https://www.youtube.com/watch?v=S1gp0m4B5p8"},{"title":"Take Care (with Rihanna)","date":"2011-11","position":7,"url":"https://www.youtube.com/watch?v=-zzP29emgpg"},{"title":"Diplomatic Immunity","date":"2018-01","position":7,"url":"https://www.youtube.com/watch?v=c57SJmqpp5g"},{"title":"I'm Upset","date":"2018-05","position":7,"url":"https://www.youtube.com/watch?v=rIhx2wZ8jnA"},{"title":"Money In The Grave (with Rick Ross)","date":"2019-06","position":7,"url":"https://www.youtube.com/watch?v=b3lH6CULHD0"},{"title":"Forever (with Lil Wayne and Eminem)","date":"2009-09","position":8,"url":"https://www.youtube.com/watch?v=eDuRoPIOBjE"},{"title":"Fuckin' Problems (with 2 Chainz Kendrick Lamar and A$ap Rocky)","date":"2012-11","position":8,"url":"https://www.youtube.com/watch?v=liZm1im2erU"},{"title":"Fake Love","date":"2016-10","position":8,"url":"https://www.youtube.com/watch?v=k9o6HN9pQXY"},{"title":"Passionfruit","date":"2017-03","position":8,"url":"https://www.youtube.com/watch?v=COz9lDCFHjw"},{"title":"Emotionless","date":"2018-06","position":8,"url":"https://www.youtube.com/watch?v=qIXhOXfx-qY"},{"title":"Make Me Proud (with Nicki Minaj)","date":"2011-10","position":9,"url":"https://www.youtube.com/watch?v=0P_-ol5E0j8"},{"title":"Love Me (with Future and Lil Wayne)","date":"2013-01","position":9,"url":"https://www.youtube.com/watch?v=KY44zvhWhp4"},{"title":"Portland (with Travis Scott and Quavo)","date":"2017-03","position":9,"url":"https://www.youtube.com/watch?v=wg1rQdwiB2A"},{"title":"Don't Matter To Me (with Michael Jackson)","date":"2018-06","position":9,"url":"https://www.youtube.com/watch?v=cY5qcEyUZfE"},{"title":"No Guidance (with Chris Brown)","date":"2019-06","position":9,"url":"https://www.youtube.com/watch?v=6L_k74BOLag"},{"title":"I'm On One (with Rick Ross Lil Wayne and DJ Khaled)","date":"2011-05","position":10,"url":"https://www.youtube.com/watch?v=Z09lYqdxqzo"},{"title":"Walk It Talk It (with Migos)","date":"2018-01","position":10,"url":"https://www.youtube.com/watch?v=fGqdIPer-ms"}]
+      songs[2] = [{"title":"Heartbreak Hotel","date":"1956-01","position":1,"url":"https://www.youtube.com/watch?v=e9BLw4W5KU8"},{"title":"Hound Dog","date":"1956-07","position":1,"url":"https://www.youtube.com/watch?v=-eHJ12Vhpyc"},{"title":"Too Much","date":"1957-01","position":1,"url":"https://www.youtube.com/watch?v=GPc8XNtlDk4"},{"title":"All Shook Up","date":"1957-03","position":1,"url":"https://www.youtube.com/watch?v=23zLefwiii4"},{"title":"(Let Me Be Your) Teddy Bear","date":"1957-05","position":1,"url":"https://www.youtube.com/watch?v=NkDbk-egHH4"},{"title":"Jailhouse Rock","date":"1957-09","position":1,"url":"https://www.youtube.com/watch?v=PpsUOOfb-vE"},{"title":"Don't","date":"1958-01","position":1,"url":"https://www.youtube.com/watch?v=8jbLez_LQyI"},{"title":"Hard Headed Woman","date":"1958-06","position":1,"url":"https://www.youtube.com/watch?v=SuhzAixFydo"},{"title":"Big Hunk O'Love","date":"1959-06","position":1,"url":"https://www.youtube.com/watch?v=VqyVe8tfLm0"},{"title":"Stuck On You","date":"1960-03","position":1,"url":"https://www.youtube.com/watch?v=jVqR2PwX428"},{"title":"It's Now Or Never","date":"1960-07","position":1,"url":"https://www.youtube.com/watch?v=Uwelrtb8Oho"},{"title":"Are You Lonesome Tonight","date":"1960-01","position":1,"url":"https://www.youtube.com/watch?v=9XVdtX7uSnk"},{"title":"Surrender (Torna A Surriento)","date":"1961-02","position":1,"url":"https://www.youtube.com/watch?v=O3Bj9fQkvGo"},{"title":"Good Luck Charm","date":"1962-03","position":1,"url":"https://www.youtube.com/watch?v=Z0gx4kPDW0w"},{"title":"Suspicious Minds","date":"1969-09","position":1,"url":"https://www.youtube.com/watch?v=RxOBOhRECoo"},{"title":"Burning Love","date":"1972-08","position":1,"url":"https://www.youtube.com/watch?v=zf2VYAtqRe0"},{"title":"Wear My Ring Round Your Neck","date":"1958-03","position":2,"url":"https://www.youtube.com/watch?v=0DMrKkGnP6Y"},{"title":"(Now And Then There's) A Fool Such As I","date":"1959-03","position":2,"url":"https://www.youtube.com/watch?v=-unOfZiTM_0"},{"title":"Can't Help Falling In Love","date":"1961-11","position":2,"url":"https://www.youtube.com/watch?v=vGJTaP6anOU"},{"title":"Return To Sender","date":"1962-10","position":2,"url":"https://www.youtube.com/watch?v=LZmUfUBqE-s"},{"title":"Peace In The Valley (For Me)","date":"1957-03","position":3,"url":"https://www.youtube.com/watch?v=SMD8d7oUjxw"},{"title":"(You're The) Devil In Disguise","date":"1963-06","position":3,"url":"https://www.youtube.com/watch?v=emjLXdsj6xA"},{"title":"Crying In The Chapel","date":"1965-04","position":3,"url":"https://www.youtube.com/watch?v=CYOUcV7nlN8"},{"title":"In The Ghetto","date":"1969-04","position":3,"url":"https://www.youtube.com/watch?v=FJ-r0bilzhU"},{"title":"One Night","date":"1958-10","position":4,"url":"https://www.youtube.com/watch?v=Hb18smk-GvA"},{"title":"(Marie's The Name) His Latest Flame","date":"1961-08","position":4,"url":"https://www.youtube.com/watch?v=59pOE3OmUi8"},{"title":"Wild In The Country","date":"1961-05","position":5,"url":"https://www.youtube.com/watch?v=ONNGi67wTvk"},{"title":"She's Not You","date":"1962-07","position":5,"url":"https://www.youtube.com/watch?v=qZQwc0yUZIM"},{"title":"Don't Cry Daddy","date":"1969-11","position":6,"url":"https://www.youtube.com/watch?v=w8YHBvX4QtM"},{"title":"Bossa Nova Baby","date":"1963-10","position":8,"url":"https://www.youtube.com/watch?v=W0hTGwSME_U"},{"title":"The Wonder Of You (live)","date":"1970-05","position":9,"url":"https://www.youtube.com/watch?v=F5eEvfOyb7k"}]
+      songs[3] = [{"title":"SOS","date":"2006-02","position":1,"url":"https://youtu.be/IXmF4GbA86E"},{"title":"Umbrella (with Jay Z)","date":"2007-04","position":1,"url":"https://youtu.be/CvBfHwUxHIk"},{"title":"Take A Bow","date":"2008-04","position":1,"url":"https://youtu.be/J3UjJ4wKLkg"},{"title":"Disturbia","date":"2008-05","position":1,"url":"https://youtu.be/E1mU6h4Xdxc"},{"title":"Live Your Life (with T.I.)","date":"2008-10","position":1,"url":"https://youtu.be/koVHN6eO4Xg"},{"title":"Rude Boy","date":"2010-01","position":1,"url":"https://youtu.be/e82VE8UtW8A"},{"title":"Love The Way You Lie (with Eminem)","date":"2010-06","position":1,"url":"https://youtu.be/uelHwf8o7_U"},{"title":"Only Girl (In The World)","date":"2010-09","position":1,"url":"https://youtu.be/pa14VNsdSYM"},{"title":"What's My Name? (with Drake)","date":"2010-10","position":1,"url":"https://youtu.be/U0CGsw6h60k"},{"title":"S & M","date":"2010-10","position":1,"url":"https://youtu.be/rCF8BLm6gKA"},{"title":"We Found Love (with Calvin Harris)","date":"2011-11","position":1,"url":"https://youtu.be/tg00YEETFzg"},{"title":"Diamonds","date":"2012-09","position":1,"url":"https://youtu.be/lWA2pjMjpBs"},{"title":"The Monster (with Eminem)","date":"2013-10","position":1,"url":"https://youtu.be/EHkozMIXZ8w"},{"title":"Work (with Drake)","date":"2016-01","position":1,"url":"https://youtu.be/4pdBg88UOAk"},{"title":"Pon de Replay","date":"2005-05","position":2,"url":"https://youtu.be/oEauWw9ZGrA"},{"title":"Run This Town (with Jay-Z and Kanye West)","date":"2009-07","position":2,"url":"https://youtu.be/ygC8b7F8lP0"},{"title":"Wild Thoughts (with Bryson Tiller and DJ Khaled)","date":"2017-06","position":2,"url":"https://youtu.be/fyaI4-5849w"},{"title":"Don't Stop The Music","date":"2007-09","position":3,"url":"https://youtu.be/yd8jh9QYfEs"},{"title":"Stay (with Mikky Ekko)","date":"2012-11","position":3,"url":"https://youtu.be/JF8BRvqGCNs"},{"title":"This Is What You Came For (with Calvin Harris)","date":"2016-04","position":3,"url":"https://youtu.be/kOkQ4T5WO9E"},{"title":"FourFiveSeconds (with Kanye West and Paul McCartney)","date":"2015-01","position":4,"url":"https://youtu.be/kt0g4dWxEBo"},{"title":"Where Have You Been","date":"2011-11","position":5,"url":"https://youtu.be/HBxt_v0WF6Y"},{"title":"Love On The Brain","date":"2016-05","position":5,"url":"https://youtu.be/0RyInjfgNc4"},{"title":"Unfaithful","date":"2006-04","position":6,"url":"https://youtu.be/rp4UwPZfRis"},{"title":"Hate That I Love You (with Ne-Yo)","date":"2007-08","position":7,"url":"https://youtu.be/KMOOr7GEkj8"},{"title":"Cheers (Drink To That)","date":"2011-07","position":7,"url":"https://youtu.be/ZR0v0i63PQ4"},{"title":"Take Care (with Drake)","date":"2011-11","position":7,"url":"https://youtu.be/-zzP29emgpg"},{"title":"Needed Me","date":"2016-02","position":7,"url":"https://youtu.be/wfN4PVaOU5Q"},{"title":"Hard (with Jeezy)","date":"2009-11","position":8,"url":"https://youtu.be/Xcwd_Nz6Zog"},{"title":"Break It Off (with Sean Paul)","date":"2006-11","position":9,"url":"https://youtu.be/5B9rrZmRpI8"},{"title":"Russian Roulette","date":"2009-10","position":9,"url":"https://youtu.be/ZQ2nCGawrSY"}]
+      songs[4] = []
+      songs[5] = [{"title":"Love Me Do","date":"1962-05","position":1,"url":"https://www.youtube.com/watch?v=0pGOFX1D_jg"},{"title":"She Loves You","date":"1963-08","position":1,"url":"https://www.youtube.com/watch?v=nGbWU8S3vzs"},{"title":"I Want To Hold Your Hand","date":"1963-12","position":1,"url":"https://www.youtube.com/watch?v=v1HDt1tknTc"},{"title":"Can't Buy Me Love","date":"1964-03","position":1,"url":"https://www.youtube.com/watch?v=h3WJiqc_bEs"},{"title":"A Hard Day's Night","date":"1964-07","position":1,"url":"https://www.youtube.com/watch?v=AMSiHdrHl0g"},{"title":"I Feel Fine","date":"1964-11","position":1,"url":"https://www.youtube.com/watch?v=xLBVgnZyuic"},{"title":"Eight Days A Week","date":"1965-01","position":1,"url":"https://www.youtube.com/watch?v=XTfmuDjwQTw"},{"title":"Ticket To Ride","date":"1965-09","position":1,"url":"https://www.youtube.com/watch?v=UHsN9d4FTVI"},{"title":"Help!","date":"1965-01","position":1,"url":"https://www.youtube.com/watch?v=MKUex3fci5c"},{"title":"Yesterday","date":"1965-09","position":1,"url":"https://www.youtube.com/watch?v=NrgmdOz227I"},{"title":"Day Tripper","date":"1965-03","position":1,"url":"https://www.youtube.com/watch?v=2IbPn5j2YKk"},{"title":"Paperback Writer","date":"1966-10","position":1,"url":"https://www.youtube.com/watch?v=SepZDSkY4Ro"},{"title":"Penny Lane","date":"1967-02","position":1,"url":"https://www.youtube.com/watch?v=z7syIxQCquo"},{"title":"All You Need Is Love","date":"1967-07","position":1,"url":"https://www.youtube.com/watch?v=4EGczv7iiEk"},{"title":"Hello Goodbye","date":"1967-11","position":1,"url":"https://www.youtube.com/watch?v=P2C3f0Atcoo"},{"title":"Hey Jude","date":"1968-08","position":1,"url":"https://www.youtube.com/watch?v=mQER0A0ej0M"},{"title":"Get Back","date":"1969-04","position":1,"url":"https://www.youtube.com/watch?v=YEESfv-11ng"},{"title":"Something","date":"1969-10","position":1,"url":"https://www.youtube.com/watch?v=MZ3Vh8jZFdE"},{"title":"Let It Be","date":"1970-06","position":1,"url":"https://www.youtube.com/watch?v=HzvDofigTKQ"},{"title":"The Long And Winding Road","date":"1970-05","position":1,"url":"https://www.youtube.com/watch?v=NR0u_qjq2fM"},{"title":"Twist And Shout","date":"1964-03","position":2,"url":"https://www.youtube.com/watch?v=2RicaUqd9Hg"},{"title":"Do You Want To Know A Secret","date":"1964-03","position":2,"url":"https://www.youtube.com/watch?v=uRQ7ecvU56k"},{"title":"Yellow Submarine","date":"1966-05","position":2,"url":"https://www.youtube.com/watch?v=ztHxu-13UqI"},{"title":"Please Please Me","date":"1963-12","position":3,"url":"https://www.youtube.com/watch?v=czw8eqepir8"},{"title":"Nowhere Man","date":"1966-02","position":3,"url":"https://www.youtube.com/watch?v=8scSwaKbE64"},{"title":"Got To Get You Into My Life","date":"1976-06","position":3,"url":"https://www.youtube.com/watch?v=r95-7zfgtLw"},{"title":"Lady Madonna","date":"1968-03","position":4,"url":"https://www.youtube.com/watch?v=C56lDvKV8tk"},{"title":"Free As A Bird","date":"1995-04","position":6,"url":"https://www.youtube.com/watch?v=ODIvONHPqpk"},{"title":"The Ballad Of John And Yoko","date":"1969-05","position":8,"url":"https://www.youtube.com/watch?v=vzd_DfGGx0I"}]
+    
+      var series = d3.stack().keys(["ones", "twos", "threes", "fours", "fives", "sixes", "sevens", "eights", "nines", "tens"])(data);
+      console.log('series', series)
+    
+      var div = d3.select("#container").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+    
+      var svg = d3.select("svg"),
+        margin = { top: 20, right: 80, bottom: 50, left: 60 },
+        width = +svg.attr("width"),
+        height = +svg.attr("height");
+    
+      var x = d3.scaleBand()
+        .domain(data.map((d) => { return d.artist }))
+        .rangeRound([margin.left, width - margin.right])
+        .padding(0.4)
+    
+      var y = d3.scaleLinear()
+        .domain([d3.min(series, stackMin), d3.max(series, stackMax)])
+        .rangeRound([height - margin.bottom, margin.top]);
+    
+      var z = d3.scaleOrdinal(d3.schemeCategory10);
+    
+      svg.append("g")
+        .selectAll("g")
+        .data(series)
+        .enter().append("g")
+        .attr("fill", (d) => { return z(d.key); })
+        .selectAll("rect")
+        .data((d) => { return d; })
+        .enter().append("rect")
+        .attr("width", x.bandwidth)
+        .attr("x", (d) => { return x(d.data.artist); })
+        .attr("y", (d) => { return y(d[1]); })
+        .attr("height", (d) => { return y(d[0]) - y(d[1]); })
+        .on("click", (d) => {
+          div.style("opacity", 1);
+          div.html(getSongs(d, d.data.index, d.data.artist))
+        })
+    
+      svg.append("g")
+        .attr("transform", "translate(0," + y(0) + ")")
+        .call(d3.axisBottom(x));
+    
+      svg.append("g")
+        .attr("transform", "translate(" + margin.left + ",0)")
+        .call(d3.axisLeft(y));
+    
+      svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 25)
+        .attr("x", 0 - (height / 2))
+        .attr("font-family", "Arial")
+        .style("text-anchor", "middle")
+        .text("Top 10 Hits");
+    
+      svg.append("text")
+        .attr("y", height - 10)
+        .attr("x", (width / 2))
+        .attr("font-family", "Arial")
+        .style("text-anchor", "middle")
+        .text("Artist");
+    
+      let xLegend = 845, yLegend = 50
+      for (const [i, color] of d3.schemeCategory10.entries()) {
+        svg.append("circle").attr("cx", xLegend).attr("cy", yLegend).attr("r", 6).style("fill", d3.schemeCategory10[i])
+        svg.append("text").attr("x", xLegend + 10).attr("y", yLegend + 2).text(`#${i + 1} hits`).style("font-size", "12px").attr("font-family", "Arial").attr("alignment-baseline", "middle")
+        yLegend = yLegend + 30
+      }
+    
+      function getSongs(slots, artistIndex, artist) {
+        let extract = songs[artistIndex].slice(slots[0], slots[1])
+        let html = `<h1><strong>${artist} #${extract[0].position} hits</strong></h1>`
+        let delim = ''
+        for (song in extract) {
+          let formattedDate = moment(extract[song].date).format('MMMM YYYY');
+          html += `${delim}<a href='${extract[song].url}' target='_blank'>${extract[song].title}</a>, ${formattedDate}`
+          delim = '<br/>'
+        }
+        return html
+      }
+    
+      function stackMin(serie) {
+        return d3.min(serie, (d) => { return d[0]; });
+      }
+    
+      function stackMax(serie) {
+        return d3.max(serie, (d) => { return d[1]; });
+      }
+    </script>
+</html>
