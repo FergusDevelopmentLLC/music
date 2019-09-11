@@ -1,30 +1,31 @@
-Got To Be There,1971-10,1
-Rockin' Robin,1972-02,1
-Ben,1972-08,1
-Don't Stop 'Til You Get Enough,1979-07,1
-Rock With You,1979-10,1
-Billie Jean,1983-01,1
-Beat It,1983-02,1
-"Say, Say, Say",1983-03,1
-I Just Can't Stop Loving You,1987-07,1
-Bad,1987-09,1
-The Way You Make Me Feel,11/1987,1
-Man In The Mirror,1/1988,1
-Dirty Diana,5/1988,1
-Black Or White,06.11.1991,1
-Remember The Time,1/1992,1
-You Are Not Alone,8/1995,1
-The Girl Is Mine,29.10.1982,2
-Thriller,1/1984,4
-Wanna Be Starting Something,5/1983,5
-Scream,05.06.1995,5
-In The Closet,06.04.1992,6
-Human Nature,7/1983,7
-Smooth Criminal,11/1988,7
-Will You Be There?,07.06.1993,7
-Love Never Felt So Good (with Justin Timberlake),4/2014,9
-Don't Matter To Me (with Drake),6/2018,9
-Off The Wall,2/1980,10
-She's Out Of My Life,4/1980,10
-P.Y.T. (Pretty Young Thing),9/1983,10
-You Rock My World,02.10.2001,10
+name,title,date,position,url
+Michael Jackson,Got To Be There,1971-10,1,https://youtu.be/1dp2FiFfCNY
+Michael Jackson,Rockin' Robin,1972-02,1,https://youtu.be/9_G637sWOJk
+Michael Jackson,Ben,1972-08,1,https://youtu.be/g40WCBaUXR4
+Michael Jackson,Don't Stop 'Til You Get Enough,1979-07,1,https://youtu.be/yURRmWtbTbo
+Michael Jackson,Rock With You,1979-10,1,https://youtu.be/5X-Mrc2l1d0
+Michael Jackson,Billie Jean,1983-01,1,https://youtu.be/Zi_XLOBDo_Y
+Michael Jackson,Beat It,1983-02,1,https://youtu.be/oRdxUFDoQe0
+Michael Jackson,"Say, Say, Say",1983-03,1,https://youtu.be/aLEhh_XpJ-0
+Michael Jackson,I Just Can't Stop Loving You,1987-07,1,https://youtu.be/fKBiYBWRYDM
+Michael Jackson,Bad,1987-09,1,https://youtu.be/fKBiYBWRYDM
+Michael Jackson,The Way You Make Me Feel,1987-11,1,https://youtu.be/HzZ_urpj4As
+Michael Jackson,Man In The Mirror,1988-01,1,https://youtu.be/PivWY9wn5ps
+Michael Jackson,Dirty Diana,1988-05,1,https://youtu.be/yUi_S6YWjZw
+Michael Jackson,Black Or White,1991-11,1,https://youtu.be/IdGDuzVD7rg
+Michael Jackson,Remember The Time,1992-01,1,https://youtu.be/q9YyV-4mM94
+Michael Jackson,You Are Not Alone,1995-08,1,https://youtu.be/pAyKJAtDNCw
+Michael Jackson,The Girl Is Mine,1982-10,2,https://youtu.be/FNqMrYgm9w0
+Michael Jackson,Thriller,1984-01,4,https://youtu.be/xIx_HbmRnQY
+Michael Jackson,Wanna Be Starting Something,1983-05,5,https://youtu.be/4Uj3zitETs4
+Michael Jackson,Scream (with Janet Jackson),1995-05,5,https://youtu.be/0P4A1K4lXDo
+Michael Jackson,In The Closet,1992-06,6,https://youtu.be/4qLY0vbrT8Q
+Michael Jackson,Human Nature,1983-07,7,https://youtu.be/tKAh--ss1r0
+Michael Jackson,Smooth Criminal,1988-11,7,https://youtu.be/h_D3VFfhvs4
+Michael Jackson,Will You Be There?,1993-07,7,https://youtu.be/jQY_QL_wvQU
+Michael Jackson,Love Never Felt So Good (with Justin Timberlake),2014-01,9,https://youtu.be/oG08ukJPtR8
+Michael Jackson,Don't Matter To Me (with Drake),2018-06,9,https://youtu.be/cY5qcEyUZfE
+Michael Jackson,Off The Wall,1980-02,10,https://youtu.be/B3MFbhwfEXU
+Michael Jackson,She's Out Of My Life,1980-04,10,https://youtu.be/6DQJPL9Yuq0
+Michael Jackson,P.Y.T. (Pretty Young Thing),1983-09,10,https://youtu.be/1ZZQuj6htF4
+Michael Jackson,You Rock My World,2001-02,10,https://youtu.be/C1kHeeEMe-s
