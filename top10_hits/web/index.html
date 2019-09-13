@@ -111,7 +111,7 @@
         .attr("height", (d) => { return y(d[0]) - y(d[1]); })
         .on("click", (d) => {
           div.style("opacity", 1);
-          div.html(getSongs(d, d.data.index, d.data.artist))
+          div.html(getSongs(d, i, d.data.artist))
         })
         .on("mouseover", function(d,i) {
           d3.select(this).style("stroke-width","2");
@@ -180,24 +180,22 @@
         return html
       }
 
-      function stackMin(serie) {
-        return d3.min(serie, (d) => { return d[0]; });
+      function stackMin(s) {
+        return d3.min(s, (d) => { return d[0]; });
       }
     
-      function stackMax(serie) {
-        return d3.max(serie, (d) => { return d[1]; });
+      function stackMax(s) {
+        return d3.max(s, (d) => { return d[1]; });
       }
 
       function getCountsData (artistWorksData) {
         
         var data = []
       
-        let ii = 0
         for(artist in artistWorksData) {
           let artistWorks = artistWorksData[artist]
           artistCounts = {}
           artistCounts.artist = artistWorksData[artist][0].name
-          artistCounts.index = ii
           artistCounts.ones = getCounts(1, artistWorksData[artist])
           artistCounts.twos = getCounts(2, artistWorksData[artist])
           artistCounts.threes = getCounts(3, artistWorksData[artist])
@@ -208,7 +206,6 @@
           artistCounts.eights = getCounts(8, artistWorksData[artist])
           artistCounts.nines = getCounts(9, artistWorksData[artist])
           artistCounts.tens = getCounts(10, artistWorksData[artist])
-          ii++
           data.push (artistCounts)
         }
 
