@@ -3,7 +3,7 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://momentjs.com/downloads/moment.js"></script>
 <style>
-  div.tooltip {
+  div.songInfo {
     width: 275px;
     padding: 10px;
     text-align: center;
@@ -15,15 +15,36 @@
   #container {
     width: 900px;
   }
+
   #container div {
     margin:auto;
   }
+  
   h1 {
     margin: 0 0 5px 0;
     padding: 0;
     font: 15px sans-serif;
   }
 
+  div.tooltip {
+    position: absolute;
+    max-width: 100px;
+    padding: 3px 6px;
+    background: whitesmoke;
+    border: 1px solid gray;
+    border-radius: 5px;
+    pointer-events: none;
+    padding: 10px;
+  }
+
+  div.tooltip p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
+  
 </style>
 <html>
   <body>
@@ -52,11 +73,11 @@
       var series = d3.stack().keys(["ones", "twos", "threes", "fours", "fives", "sixes", "sevens", "eights", "nines", "tens"])(data);
       
       var div = d3.select("#container").append("div")
-        .attr("class", "tooltip")
+        .attr("class", "songInfo")
         .style("opacity", 0);
     
       var svg = d3.select("svg"),
-        margin = { top: 20, right: 80, bottom: 95, left: 60 },
+        margin = { top: 20, right: 80, bottom: 105, left: 60 },
         width = +svg.attr("width"),
         height = +svg.attr("height");
     
@@ -70,7 +91,12 @@
         .rangeRound([height - margin.bottom, margin.top]);
     
       var z = d3.scaleOrdinal(d3.schemeCategory10);
-    
+
+      var tooltip;
+      tooltip = d3.select('body').append('div')
+        .attr('class', 'tooltip')
+        .style('opacity', 0);
+
       svg.append("g")
         .selectAll("g")
         .data(series)
@@ -87,7 +113,19 @@
           div.style("opacity", 1);
           div.html(getSongs(d, d.data.index, d.data.artist))
         })
-    
+        .on("mouseover", function(d,i) {
+          d3.select(this).style("stroke-width","2");
+          d3.select(this).style("stroke","black");
+          d3.select(this).style("cursor","pointer");
+          d3.select(this.parentNode).raise();
+          setTimeout(showTooltip(d, d.data.artist, i), 3000)
+        })
+        .on("mouseout", function(d,i) {
+          d3.select(this.parentNode).lower();
+          d3.select(this).style("stroke-width","0");
+          setTimeout(hideTooltip(), 1000);
+        })
+
       svg.append("g")
           .attr("transform", "translate(0," + y(0) + ")")
           .call(d3.axisBottom(x))
@@ -112,7 +150,7 @@
         .text("Number of Top 10 Singles");
     
       svg.append("text")
-        .attr("y", height - 5)
+        .attr("y", height - 20)
         .attr("x", (width / 2))
         .attr("font-family", "Arial")
         .style("font-size", "12px")
@@ -127,10 +165,12 @@
         yLegend = yLegend + 30
         i--
       }
+
+      svg.append("text").attr("x", 391).attr("y", 393).text(`(click bar for song info)`).style("font-size", "11.75px").attr("font-family", "Arial").attr("alignment-baseline", "middle")
     
       function getSongs(slots, artistIndex, artist) {
         let extract = artistWorksData[artistIndex].slice(slots[0], slots[1])
-        let html = `<h1><strong>${artist} #${extract[0].position} hits</strong></h1>`
+        let html = `<h1><strong>${artist} #${extract[0].position} hit singles</strong></h1>`
         let delim = ''
         for (song in extract) {
           let formattedDate = moment(extract[song].date).format('MMMM YYYY');
@@ -139,7 +179,7 @@
         }
         return html
       }
-    
+
       function stackMin(serie) {
         return d3.min(serie, (d) => { return d[0]; });
       }
@@ -181,6 +221,20 @@
           if(artistWorks[song].position == bucket) count ++
         }
         return count
+      }
+
+      function showTooltip(d, artist, i) {
+        let count = d[1]-d[0]
+        let songs = artistWorksData[i].slice(d[0], d[1])
+        var tooltip_msg = '<div class="tooltip">';
+        tooltip_msg = `<p>${artist} charted ${count} #${songs[0].position} hit singles, click for more info.</p>`;
+        tooltip_msg = tooltip_msg + '</div>';
+        tooltip.style('opacity', 1);
+        tooltip.html(tooltip_msg).style('left', (d3.event.pageX - 0) + 'px').style('top', (d3.event.pageY - 0) + 'px');
+      }
+
+      function hideTooltip() {
+        tooltip.style('opacity', 0);
       }
 
     </script>
