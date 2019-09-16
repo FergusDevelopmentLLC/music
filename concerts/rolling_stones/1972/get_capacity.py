@@ -112,7 +112,7 @@ def getPossibleCapacitiesFrom(text_only):
 
     return arrPossibileCaps
 
-with open('in_the_flesh.csv') as csv_file:
+with open('American_Tour_1972.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 0
     for row in csv_reader:
@@ -122,11 +122,3 @@ with open('in_the_flesh.csv') as csv_file:
             cap = getPossibleCapacitiesFrom(text_only)
             print (row[4]) + "|" + str(cap)
         line_count = line_count + 1
-
-#resp = urllib2.urlopen("https://en.wikipedia.org/wiki/Pavillon_de_Paris")
-#resp = urllib2.urlopen("https://en.wikipedia.org/wiki/Riverfront_Coliseum")
-#resp = urllib2.urlopen("https://en.wikipedia.org/wiki/Spectrum_(arena)")
-#resp = urllib2.urlopen("https://google.com")
-
-#print(text_from_html(resp))
-#print(getPossibleCapacitiesFrom(text_only))
