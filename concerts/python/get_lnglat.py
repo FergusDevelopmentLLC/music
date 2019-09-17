@@ -79,18 +79,20 @@ def getLngLat(resp):
 
         return finalLatLng
 
-with open('1970SummerNorthAmericanTour.csv') as csv_file:
+with open('uk_tour_1971.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 0
     for row in csv_reader:
         if line_count > 0:
-            resp = urllib2.urlopen(row[4])
-            lngLat = getLngLat(resp)
-
-            if(len(lngLat) > 0):
-                print (row[4]) + "|" + str(lngLat[0]) + ',' + str(lngLat[1])
-            else:
-                print (row[4]) + "|"
+            try:
+                resp = urllib2.urlopen(row[4])
+                lngLat = getLngLat(resp)
+                if(len(lngLat) > 0):
+                    print (row[4]) + "|" + str(lngLat[0]) + ',' + str(lngLat[1])
+                else:
+                    print (row[4]) + "|"
+            except:
+                print (row[4] + "|")
 
         line_count = line_count + 1
 

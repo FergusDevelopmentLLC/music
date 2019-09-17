@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import urllib2
 
-soup = BeautifulSoup(open("American_Tour_1972.html"), "html.parser")
+soup = BeautifulSoup(open("uk_tour_1971.html"), "html.parser")
 
 tables = soup.findChildren('table')
 
